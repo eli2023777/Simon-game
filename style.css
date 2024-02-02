@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    background-color: #000;
+}
+
+.container {
+    height: 100vh;
+    /* margin: 0 auto; */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+h1 {
+    color: #fff;
+    font-size: 3em;
+    position: absolute;
+    top: 50px;
+}
+
+.colorsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 3fr);
+    grid-template-rows: repeat(2, 3fr);
+    z-index: 1;
+    position: absolute;
+}
+
+.colorBtn {
+    width: 170px;
+    height: 170px;
+    cursor: pointer;
+    box-shadow: 0 0 10px 0 #666;
+}
+
+#green {
+
+    background-color: rgb(5, 169, 5);
+    border-top-left-radius: 100%;
+
+}
+
+#red {
+
+    background-color: crimson;
+    border-start-end-radius: 100%;
+
+}
+
+#blue {
+
+    background-color: rgb(3, 3, 105);
+    border-end-start-radius: 100%;
+
+}
+
+#yellow {
+    background-color: rgb(228, 228, 16);
+    border-bottom-right-radius: 100%;
+
+}
+
+#btnLoad {
+    width: 170px;
+    height: 170px;
+    border-radius: 100%;
+    z-index: 2;
+    font: 2em sans-serif;
+    color: #fff;
+    background-color: #000;
+    cursor: pointer;
+}
+
+#output {
+    width: 500px;
+    height: 90px;
+    display: block;
+    bottom: 0;
+    position: absolute;
+    bottom: 25px;
+    color: #fff;
+    font-size: 2.5rem;
+}
