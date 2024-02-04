@@ -74,6 +74,8 @@ function mySwitch(num) {
             green.click();
             green.style.borderColor = '#fff';
             green.style.borderWidth = '5px';
+            new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3").play();
+
             setTimeout(() => { green.style.borderColor = '#000'; }, 500);
 
             console.log('green game clicked');
@@ -83,6 +85,7 @@ function mySwitch(num) {
             red.click();
             red.style.borderColor = '#fff';
             red.style.borderWidth = '5px';
+            new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3").play();
             setTimeout(() => { red.style.borderColor = '#000'; }, 500);
 
             console.log('red game clicked');
@@ -93,6 +96,7 @@ function mySwitch(num) {
             blue.click();
             blue.style.borderColor = '#fff';
             blue.style.borderWidth = '5px';
+            new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3").play();
 
             setTimeout(() => { blue.style.borderColor = '#000' }, 500);
 
@@ -105,6 +109,7 @@ function mySwitch(num) {
             yellow.click();
             yellow.style.borderColor = '#fff';
             yellow.style.borderWidth = '5px';
+            new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3").play();
 
             setTimeout(() => { yellow.style.borderColor = '#000' }, 500);
 
@@ -136,6 +141,7 @@ function userTurn(arrRound) {
                     userInputArr.push(1);
                     green.style.borderColor = '#fff';
                     green.style.borderWidth = '5px';
+                    new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3").play();
 
                     setTimeout(() => { green.style.borderColor = '#000' }, 500);
                     break;
@@ -144,6 +150,7 @@ function userTurn(arrRound) {
                     userInputArr.push(2);
                     red.style.borderColor = '#fff';
                     red.style.borderWidth = '5px';
+                    new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3").play();
 
                     setTimeout(() => { red.style.borderColor = '#000' }, 500);
 
@@ -153,6 +160,7 @@ function userTurn(arrRound) {
                     userInputArr.push(3);
                     blue.style.borderColor = '#fff';
                     blue.style.borderWidth = '5px';
+                    new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3").play();
 
                     setTimeout(() => { blue.style.borderColor = '#000' }, 500);
                     break;
@@ -161,6 +169,7 @@ function userTurn(arrRound) {
                     userInputArr.push(4);
                     yellow.style.borderColor = '#fff';
                     yellow.style.borderWidth = '5px';
+                    new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3").play();
 
                     setTimeout(() => { yellow.style.borderColor = '#000' }, 500);
                     break;
