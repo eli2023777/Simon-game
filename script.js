@@ -209,6 +209,7 @@ function endTurn(userInputArr, arrRound) {
 
     } else {
         output.innerHTML = `Game over! Your score: ${userCounter}. <br/> Click start to play again.`;
+        new Audio("game-over-sound-effect.wav").play();
         initGame();
     }
 }
@@ -238,86 +239,3 @@ document.getElementById('btnLoad').addEventListener('click', round);
 
 
 
-
-// // Function (D)
-// function userTurn() {
-//     // Get input from the user
-//     // const userInput = prompt('Please enter your guess');
-//     let userInput
-//     document.querySelectorAll('.colorBtn').forEach(button => {
-//         button.addEventListener('click', (event) => {
-//             const clicedBtn = event.target;
-//             switch (clicedBtn) {
-//                 case green:
-//                     userInput = 1;
-//                     break;
-
-//                 case red:
-//                     userInput = 2;
-//                     break;
-
-//                 case blue:
-//                     userInput = 3;
-//                     break;
-
-//                 case yellow:
-//                     userInput = 4;
-//                     break;
-//             }
-//         })
-//     });
-
-
-//     // Compar input with the array
-//     if (userInput === arrRound[gameCounter]) {
-//         console.log('Success!');;
-//         gameCounter++;
-//         userCounter++;
-//         round();
-//     } else {
-//         console.log(`Game over! Your score: ${userCounter}`);
-//         initGame();
-//     }
-// }
-
-
-
-
-
-// arrRound.push(random);
-
-// for (let i = 0; i < arrRound.length; i++) {
-//     setTimeout(() => {
-//         switch (arrRound[i]) {
-//             case 1:
-//                 green.click();
-//                 green.style.backgroundColor = 'lightgreen';
-//                 console.log('green clicked');
-//                 break;
-
-//             case 2:
-//                 red.click();
-//                 red.style.backgroundColor = 'crimson';
-
-//                 console.log('red clicked');
-
-//                 break;
-
-//             case 3:
-//                 blue.click();
-//                 blue.style.backgroundColor = 'lightblue';
-
-//                 console.log('blue clicked');
-
-//                 break;
-
-//             case 4:
-//                 yellow.click();
-//                 yellow.style.backgroundColor = 'lightyellow';
-
-//                 console.log('yellow clicked');
-
-//                 break;
-//         }
-//     }, 1000 * (i + 1));
-// }
