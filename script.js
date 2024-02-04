@@ -208,7 +208,7 @@ function endTurn(userInputArr, arrRound) {
 
 
     } else {
-        output.innerHTML = `Game over! Your score: ${userCounter}. <br/> Click start to play again.`;
+        output.innerHTML = `Game over! Your score: ${userCounter}.`;
         new Audio("game-over-sound-effect.wav").play();
         initGame();
     }
