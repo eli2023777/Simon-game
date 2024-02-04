@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+/* Removing the blue highlight of button on mobile */
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
 body {
     width: 100vw;
     background-color: #000;
