@@ -99,6 +99,23 @@ h1 {
     font-size: 2.5rem;
 }
 
+#level {
+    position: absolute;
+    bottom: 35px;
+    left: 25px;
+    color: #fff;
+    font-size: 2rem;
+
+}
+
+#highestLevel {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    color: #fff;
+    font-size: 2rem;
+}
+
 
 @media screen and (max-width: 768px) {
     h1 {
@@ -112,4 +129,8 @@ h1 {
         font-size: 2rem;
     }
 
+    #level,
+    #highestLevel {
+        font-size: 1.5rem;
+    }
 }

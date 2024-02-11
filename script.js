@@ -1,6 +1,8 @@
+const level = document.getElementById('level');
+const highestLevel = document.getElementById('highestLevel');
+
 let arrRound = []; // Array round
 let gameCounter; // Game counter
-let userCounter; // User counter
 
 // Colors
 const green = document.getElementById('green');
@@ -19,9 +21,11 @@ const output = document.getElementById('output');
 // Function (A) אתחול ואיפוס
 // This function does NOT start the game, you need to press a button to start the game
 function initGame() {
-    userInputArr = [];
-    userCounter = 0; // איפוס משתנים
-    arrRound = []; // איפוס המערך
+    highestLevel.innerHTML = `Highest level: ${localStorage.getItem('highestLevel')}`;
+    userInputArr = []; // User input array
+    userCounter = 0; // User counter 
+    arrRound = []; // Array round
+    startBtn.value = 'Start';
     console.log('Game initiated...');
 }
 
@@ -203,12 +207,17 @@ function endTurn(userInputArr, arrRound) {
         setTimeout(() => {
             startBtn.value = 'Start';
             userCounter++;
+            level.innerHTML = `Level: ${userCounter}`;
             round();
         }, 1000);
 
 
     } else {
         output.innerHTML = `Game over! Your score: ${userCounter}.`;
+        startBtn.value = 'Try again';
+        if (userCounter > localStorage.getItem('highestLevel')) {
+            localStorage.setItem('highestLevel', userCounter);
+        }
         new Audio("game-over-sound-effect.wav").play();
         initGame();
     }
