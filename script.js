@@ -11,33 +11,47 @@ const blue = document.getElementById('blue');
 const yellow = document.getElementById('yellow');
 
 let userInputArr = [];
-
 let gameTurn;
 
 const startBtn = document.getElementById('btnLoad');
 const output = document.getElementById('output');
 
+let currentHighestLevel;
 
-// Function (A) אתחול ואיפוס
+// Function (A-1) אתחול ואיפוס
 // This function does NOT start the game, you need to press a button to start the game
 function initGame() {
-    highestLevel.innerHTML = `Highest level: ${localStorage.getItem('highestLevel')}`;
+    level.innerHTML = `Level: 0`;
+    currentHighestLevel = localStorage.getItem('highestLevel') ? localStorage.getItem('highestLevel') : 0
+    highestLevel.innerHTML = `Highest level: ${currentHighestLevel}`;
+
     userInputArr = []; // User input array
     userCounter = 0; // User counter 
     arrRound = []; // Array round
+
     startBtn.value = 'Start';
     console.log('Game initiated...');
 }
 
+// Function (A-2) - תחילת משחק
+function start() {
+    output.innerHTML = 'Good luck!';
+    setTimeout(() => {
+        output.innerHTML = '';
+        startBtn.value = '';
+    }, 2000);
+    round();
+}
 
 // Function (B) ניהול שלב/סיבוב
 function round() {
-    output.innerHTML = 'Good luck!';
+
 
     // 1. Create step and add as a last elemnt to the array
     // arrRound[gameCounter];
     userInputArr = [];
     gameTurn = true;
+
 
     // :מהסיבוב השני ומעלה
     // בתור של המחשב - עובר על כל הלחיצות הקודמות לפני הלחיצה החדשה
@@ -71,7 +85,7 @@ function createStep() {
 }
 
 function mySwitch(num) {
-    document.querySelectorAll('.colorBtn').forEach(button => button.style.cursor = 'progress');
+    document.querySelectorAll('.colorBtn').forEach(button => button.style.cursor = 'wait');
 
     switch (num) {
         case 1:
@@ -202,14 +216,19 @@ function userTurn(arrRound) {
 function endTurn(userInputArr, arrRound) {
     // Continue with the game logic (compare input with the array, etc.)
     if (arraysAreEqual(userInputArr, arrRound)) {
-        startBtn.value = 'Success!';
+        userCounter++;
+        successMessages();
 
         setTimeout(() => {
-            startBtn.value = 'Start';
-            userCounter++;
             level.innerHTML = `Level: ${userCounter}`;
             round();
         }, 1000);
+
+        setTimeout(() => {
+            startBtn.value = '';
+        }, 2500);
+
+
 
 
     } else {
@@ -225,25 +244,63 @@ function endTurn(userInputArr, arrRound) {
 
 function arraysAreEqual(arr1, arr2) {
     return JSON.stringify(arr1) === JSON.stringify(arr2);
+};
+
+
+function successMessages() {
+
+    switch (userCounter) {
+        case 1:
+            seccessMsg = 'Success!';
+            break;
+
+        case 2:
+            seccessMsg = 'Nice!'
+            break;
+
+        case 3:
+            seccessMsg = 'Good!'
+            break;
+
+        case 4:
+            seccessMsg = 'Very Good!'
+            break;
+
+        case 5:
+            seccessMsg = 'Great!'
+            break;
+
+        case 6:
+            seccessMsg = 'Awesome!'
+            break;
+
+        case 7:
+            seccessMsg = 'Excellent!'
+            break;
+
+        case 8:
+            seccessMsg = 'Fantastic!!'
+            break;
+
+        case 9:
+            seccessMsg = 'Amazing!!'
+            break;
+
+        case 10:
+            seccessMsg = 'Wow!!!'
+            break;
+
+    }
+
+    startBtn.value = seccessMsg;
+
 }
 
 
 
+
 initGame();
-document.getElementById('btnLoad').addEventListener('click', round);
-
-
-
-
-
-
-
-
-
-
-
-
-
+document.getElementById('btnLoad').addEventListener('click', start);
 
 
 
