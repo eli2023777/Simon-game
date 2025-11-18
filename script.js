@@ -16,6 +16,8 @@ let gameTurn;
 const startBtn = document.getElementById('btnLoad');
 const output = document.getElementById('output');
 
+const colorBtn = document.querySelectorAll('.colorBtn');
+
 let currentHighestLevel;
 
 // Function (A-1) אתחול ואיפוס
@@ -30,15 +32,16 @@ function initGame() {
     arrRound = []; // Array round
 
     startBtn.value = 'Start';
-    console.log('Game initiated...');
 }
 
 // Function (A-2) - תחילת משחק
 function start() {
-    output.innerHTML = 'Good luck!';
+    output.innerHTML = 'Good Luck!';
+    startBtn.disabled = true;
+    startBtn.style.cursor = 'auto';
+    startBtn.value = '';
     setTimeout(() => {
         output.innerHTML = '';
-        startBtn.value = '';
     }, 2000);
     round();
 }
@@ -46,9 +49,6 @@ function start() {
 // Function (B) ניהול שלב/סיבוב
 function round() {
 
-
-    // 1. Create step and add as a last elemnt to the array
-    // arrRound[gameCounter];
     userInputArr = [];
     gameTurn = true;
 
@@ -56,10 +56,10 @@ function round() {
     // :מהסיבוב השני ומעלה
     // בתור של המחשב - עובר על כל הלחיצות הקודמות לפני הלחיצה החדשה
 
-    for (let i = 1; i <= arrRound.length; i++) {
+    for (let i = 0; i <= arrRound.length; i++) {
         setTimeout(() => {
-            if (gameTurn == true) mySwitch(arrRound[i - 1]);
-        }, i * 1000);
+            if (gameTurn == true) mySwitch(arrRound[i]);
+        }, (i + 1) * 1000);
 
     }
 
@@ -67,6 +67,7 @@ function round() {
     setTimeout(() => {
         let newStep = createStep(); // function (C) --> Random num
         arrRound.push(newStep);
+
         gameTurn = false;
         // עובר לתור המשתמש
         userTurn(arrRound); // Function (D) 
@@ -85,7 +86,7 @@ function createStep() {
 }
 
 function mySwitch(num) {
-    document.querySelectorAll('.colorBtn').forEach(button => button.style.cursor = 'wait');
+    colorBtn.forEach(button => button.style.cursor = 'wait');
 
     switch (num) {
         case 1:
@@ -95,8 +96,6 @@ function mySwitch(num) {
             new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3").play();
 
             setTimeout(() => { green.style.borderColor = '#000'; }, 500);
-
-            console.log('green game clicked');
             break;
 
         case 2:
@@ -105,9 +104,6 @@ function mySwitch(num) {
             red.style.borderWidth = '5px';
             new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3").play();
             setTimeout(() => { red.style.borderColor = '#000'; }, 500);
-
-            console.log('red game clicked');
-
             break;
 
         case 3:
@@ -117,10 +113,6 @@ function mySwitch(num) {
             new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3").play();
 
             setTimeout(() => { blue.style.borderColor = '#000' }, 500);
-
-
-            console.log('blue game clicked');
-
             break;
 
         case 4:
@@ -131,9 +123,6 @@ function mySwitch(num) {
 
             setTimeout(() => { yellow.style.borderColor = '#000' }, 500);
 
-
-            console.log('yellow game clicked');
-
             break;
     }
 }
@@ -142,16 +131,14 @@ function mySwitch(num) {
 
 // Function (D)
 function userTurn(arrRound) {
-    // Get input from the user
-    // const userInput = prompt('Please enter your guess');
+
     let a = 0;
-    document.querySelectorAll('.colorBtn').forEach(button => button.style.cursor = 'pointer');
+    colorBtn.forEach(button => button.style.cursor = 'pointer');
 
     // Create a function to handle button clicks
     function handleButtonClick(event) {
 
         const clickedBtn = event.target;
-        console.log(clickedBtn.id);
         if (gameTurn == false) {
 
             switch (clickedBtn.id) {
@@ -192,21 +179,30 @@ function userTurn(arrRound) {
                     setTimeout(() => { yellow.style.borderColor = '#000' }, 500);
                     break;
             }
+
+            // Check in every user clicked (by userInputArr[a]) if it is match to arrRound[a]
+            if (!(arraysAreEqual(userInputArr[a], arrRound[a]))) {
+                colorBtn.forEach(button => {
+                    button.removeEventListener('click', handleButtonClick);
+                });
+                gameOver();
+            } else {
+                a++;
+            }
         }
-        a++;
-        // Remove the event listener after a button is clicked
+
+        // Remove the event listener after a successful turn and end the turn
+
         if (a === arrRound.length) {
-            document.querySelectorAll('.colorBtn').forEach(button => {
+            colorBtn.forEach(button => {
                 button.removeEventListener('click', handleButtonClick);
             });
-            console.log('remove');
             endTurn(userInputArr, arrRound);
-
         }
     }
 
 
-    document.querySelectorAll('.colorBtn').forEach(button => {
+    colorBtn.forEach(button => {
         button.addEventListener('click', handleButtonClick);
     });
 
@@ -227,18 +223,6 @@ function endTurn(userInputArr, arrRound) {
         setTimeout(() => {
             startBtn.value = '';
         }, 2500);
-
-
-
-
-    } else {
-        output.innerHTML = `Game over! Your score: ${userCounter}.`;
-        startBtn.value = 'Try again';
-        if (userCounter > localStorage.getItem('highestLevel')) {
-            localStorage.setItem('highestLevel', userCounter);
-        }
-        new Audio("game-over-sound-effect.wav").play();
-        initGame();
     }
 }
 
@@ -289,10 +273,25 @@ function successMessages() {
         case 10:
             seccessMsg = 'Wow!!!'
             break;
-
     }
 
     startBtn.value = seccessMsg;
+
+}
+
+
+function gameOver() {
+    output.innerHTML = `Game Over! Your score: ${userCounter}.`;
+    startBtn.value = 'Try again';
+    startBtn.disabled = false;
+    startBtn.style.cursor = 'pointer';
+
+
+    if (userCounter > localStorage.getItem('highestLevel')) {
+        localStorage.setItem('highestLevel', userCounter);
+    }
+    new Audio("game-over-sound-effect.wav").play();
+    initGame();
 
 }
 
